@@ -25,14 +25,19 @@ class RoomsAdmin(admin.ModelAdmin):
         "baths",
         "check_in",
         "check_out",
+        "count_amenities",
     )
     list_filter = (
         "instant_book",
         "city",
         "country",
     )
+    filter_horizontal = ("amenities",)
 
-    search_fields = ("^city",)
+    search_fields = ("^city",)  # 검색 기능
+
+    def count_amenities(self, obj):
+        return obj.amenities.count()
 
 
 @admin.register(models.Photo)
