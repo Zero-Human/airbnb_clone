@@ -48,6 +48,7 @@ PROJECT_APPS = [
     "reviews.apps.ReviewsConfig",
     "lists.apps.ListsConfig",
     "conversations.apps.ConversationsConfig",
+    "reservations.apps.ReservationsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -134,3 +135,7 @@ STATIC_URL = "/static/"
 
 
 AUTH_USER_MODEL = "users.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")  # 사진들의 경로(절대)
+
+MEDIA_URL = "/media/"  # uploads와 연경하기 위함

@@ -8,6 +8,11 @@ from . import models
 class Itemadmin(admin.ModelAdmin):
     """Item Admin"""
 
+    list_display = ("name", "used_by")
+
+    def used_by(self, obj):
+        return obj.rooms.count()
+
     pass
 
 
@@ -26,18 +31,27 @@ class RoomsAdmin(admin.ModelAdmin):
         "check_in",
         "check_out",
         "count_amenities",
+        "count_photos",
+        "total_rating",
     )
     list_filter = (
         "instant_book",
         "city",
         "country",
     )
-    filter_horizontal = ("amenities",)
+    filter_horizontal = (
+        "amenities",
+        "facilities",
+        "house_rules",
+    )
 
     search_fields = ("^city",)  # 검색 기능
 
     def count_amenities(self, obj):
         return obj.amenities.count()
+
+    def count_photos(self, obj):
+        return obj.photos.count()
 
 
 @admin.register(models.Photo)
