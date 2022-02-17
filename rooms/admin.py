@@ -1,6 +1,5 @@
-from dataclasses import fields
-from re import search
 from django.contrib import admin
+from django.utils.html import mark_safe  # 장고에게 안전한 것이라고 지정
 from . import models
 
 # Register your models here.
@@ -16,10 +15,16 @@ class Itemadmin(admin.ModelAdmin):
     pass
 
 
+class PhotoInline(admin.TabularInline):
+    # 중간에 해당 기능을 넣어줄 수 있다.
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomsAdmin(admin.ModelAdmin):
     """Room Admin"""
 
+    inlines = (PhotoInline,)
     list_display = (
         "name",
         "country",
@@ -39,6 +44,9 @@ class RoomsAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
+
+    raw_id_fields = ("host",)  #  작은 admin 같은 느낌으로 만듬
+
     filter_horizontal = (
         "amenities",
         "facilities",
@@ -58,4 +66,9 @@ class RoomsAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     """Photo Admin"""
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        return mark_safe(f'<img width="50px" src ="{obj.file.url}"/>')
+
+    get_thumbnail.short_description = "Thumbnail"
