@@ -70,6 +70,7 @@ class Room(core_models.TimeStampedModel):
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
     baths = models.IntegerField()
+    guests = models.IntegerField(default=1)
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
@@ -79,9 +80,9 @@ class Room(core_models.TimeStampedModel):
     room_type = models.ForeignKey(
         "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
     )
-    amenities = models.ManyToManyField("Amenity", related_name="rooms")
-    facilities = models.ManyToManyField("Facility", related_name="rooms")
-    house_rules = models.ManyToManyField("HouseRule", related_name="rooms")
+    amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
+    facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
     def __str__(self):
         return self.name
@@ -89,9 +90,11 @@ class Room(core_models.TimeStampedModel):
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
-        for review in all_reviews:
-            all_ratings += review.rating_average()
-        return all_ratings / len(all_reviews)
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                all_ratings += review.rating_average()
+            return round(all_ratings / len(all_reviews), 2)
+        return 0
 
     def save(self, *args, **kwargs):
         self.city = str.capitalize(self.city)
