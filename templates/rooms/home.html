@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_name %}Home{% endblock page_name %}
+{% block page_title %}Home{% endblock page_title %}
 
 
 
@@ -8,7 +8,9 @@
 
 {%for room in rooms%}
     <h1>
+        <a href = "{% url "rooms:detail" room.pk%}">
         {{room.name}}/ {{room.price}}
+        </a>
     </h1>
 {%endfor%}
 {% if rooms.has_previous%}
