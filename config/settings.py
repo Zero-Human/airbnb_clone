@@ -139,3 +139,9 @@ AUTH_USER_MODEL = "users.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")  # 사진들의 경로(절대)
 
 MEDIA_URL = "/media/"  # uploads와 연경하기 위함
+
+# email
+EMAIL_HOST = ""
+EMAIL_PROT = ""
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWARD = ""
