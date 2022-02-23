@@ -140,8 +140,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")  # 사진들의 경로(절대)
 
 MEDIA_URL = "/media/"  # uploads와 연경하기 위함
 
-# email
-EMAIL_HOST = ""
-EMAIL_PROT = ""
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWARD = ""
+# email Config
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PROT = "587"
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+EMAIL_FROM = "brad@sandbox3cdbbf4cea2b4c48b7c0dfef284f53f6.mailgun.org"

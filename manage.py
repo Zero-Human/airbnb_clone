@@ -20,5 +20,5 @@ def main():
 
 
 if __name__ == "__main__":
-    dotenv.Read_fotenv()
+    dotenv.read_dotenv()
     main()

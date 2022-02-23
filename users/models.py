@@ -1,7 +1,7 @@
-from distutils.text_file import TextFile
-from email.policy import default
-from locale import currency
+import uuid
 from django.contrib.auth.models import AbstractUser
+from django.core.mail import send_mail
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -43,3 +43,18 @@ class User(AbstractUser):
         choices=CURRENCY_CHOICES, max_length=10, null=True, default=CURRENCY_KRW
     )
     superhost = models.BooleanField(default=False)
+    email_verity = models.BooleanField(default=False)
+    email_secret = models.CharField(max_length=120, default="")
+
+    def verify_email(self):
+        if self.email_verity is False:
+            secret = uuid.uuid4().hex[:20]
+            self.email_secret = secret
+            send_mail(
+                "Verify Airbnb Account",
+                f"Verify account, this is your secret: {secret}",
+                settings.EMAIL_FROM,
+                [self.email],
+                fail_silently=False,
+            )
+        return
