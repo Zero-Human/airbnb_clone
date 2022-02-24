@@ -142,7 +142,7 @@ MEDIA_URL = "/media/"  # uploads와 연경하기 위함
 
 # email Config
 EMAIL_HOST = "smtp.mailgun.org"
-EMAIL_PROT = "587"
+EMAIL_PORT = "587"
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 EMAIL_FROM = "brad@sandbox3cdbbf4cea2b4c48b7c0dfef284f53f6.mailgun.org"
