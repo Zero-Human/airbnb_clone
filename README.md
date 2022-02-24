@@ -1,3 +1,3 @@
 #airbnb_clone
 
-use Django, Tailwind  
+Use Django, Tailwind  
