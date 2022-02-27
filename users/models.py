@@ -60,6 +60,7 @@ class User(AbstractUser):
     )
 
     def verify_email(self):
+        # mailgun을 통해 메일 전송
         if self.email_verified is False:
             secret = uuid.uuid4().hex[:20]
             self.email_secret = secret
